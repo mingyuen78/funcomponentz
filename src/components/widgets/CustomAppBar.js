@@ -11,12 +11,18 @@ import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Snackbar from "@material-ui/core/Snackbar";
 
-function CustomAppBar() {
+// Props is flowed in like parameters.
+function CustomAppBar(props) {
   // We use React useState Hook to simulate constructor state.
   // every useState can optionally assign default value and have a reflector method set in second param
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
+  const [title] = React.useState(props.title);
+  const [loading, setLoading] = React.useState(props.loading);
+  const [message, setMessage] = React.useState(props.error);
 
   const menuList = [
     { label: "Home", url: "" },
@@ -27,6 +33,8 @@ function CustomAppBar() {
   };
   const handleClose = evt => {
     setAnchorEl(null);
+    // Pass event to parent;
+    props.handleMenuClick(evt);
   };
   const toggleDrawer = open => event => {
     if (
@@ -57,8 +65,29 @@ function CustomAppBar() {
       </div>
     );
   };
+  const handleSnackBarClose = event => {
+    setMessage(false);
+  };
+
+  React.useEffect(() => {
+    setLoading(props.loading);
+  }, [props.loading]);
+
+  React.useEffect(() => {
+    setMessage(props.error);
+  }, [props.error]);
   return (
     <AppBar position="static">
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center"
+        }}
+        key={`${"bottom"},${"center"}`}
+        open={Boolean(message)}
+        onClose={handleSnackBarClose}
+        message={<span id="message-id">{message}</span>}
+      />
       <Toolbar>
         <IconButton
           edge="start"
@@ -69,7 +98,7 @@ function CustomAppBar() {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" style={{ flex: 1 }}>
-          News
+          {title}
         </Typography>
         <IconButton
           aria-label="show more"
@@ -87,8 +116,12 @@ function CustomAppBar() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Website</MenuItem>
-        <MenuItem onClick={handleClose}>About</MenuItem>
+        <MenuItem onClick={handleClose} id="0">
+          Refresh
+        </MenuItem>
+        <MenuItem onClick={handleClose} id="1">
+          About
+        </MenuItem>
       </Menu>
 
       <SwipeableDrawer
@@ -98,6 +131,7 @@ function CustomAppBar() {
       >
         {generateDrawerList()}
       </SwipeableDrawer>
+      {loading && <LinearProgress />}
     </AppBar>
   );
 }
