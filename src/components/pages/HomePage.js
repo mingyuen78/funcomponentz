@@ -1,11 +1,11 @@
 import React from "react";
-import CustomAppBar from "./../widgets/CustomAppBar";
-import CAPIHelper from "./../utils/CAPIHelper";
+import CustomAppBar from "../widgets/CustomAppBar";
+import CAPIHelper from "../utils/CAPIHelper";
 import Box from "@material-ui/core/Box";
-import LoopRender from "./../utils/LoopRender";
+import LoopRender from "../utils/LoopRender";
 import axios from "axios";
 
-function Home() {
+function HomePage() {
   // In Function component u have the freedom to execute functions and hooks within your main functions.
   const [title] = React.useState(
     "Advance Use of UseEffect and UseState in Function Components"
@@ -26,7 +26,7 @@ function Home() {
   React.useEffect(() => {
     if (refresh) {
       // You can reduce timeout to see error in effect.
-      const timeOutInMiliseconds = 2000;
+      const timeOutInMiliseconds = 2500;
       const apiHelper = new CAPIHelper();
       apiHelper.type = "default";
       setLoaded(true);
@@ -66,7 +66,7 @@ function Home() {
 
     switch (event.currentTarget.getAttribute("id")) {
       case "0":
-        // By toggleing refresh state will trigger the useEffect again,
+        // By toggling refresh state will trigger the useEffect again,
         // because we use [refresh] and it is watching that particular state.
         setRefresh(true);
         break;
@@ -94,4 +94,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

@@ -17,12 +17,30 @@ class CAPIHelper {
   }
 
   static googleSheetURL() {
-    if (instance._type === "default") {
-      return "https://script.google.com/macros/s/AKfycbyWx63L82e2DqT50ILpYL6rpGXakBaRteP-gzqdg-tnI1-xTEs/exec";
-    } else {
-      //e.g. this._type == "url2";
-      return "https://script.google.com/macros/s/AKfycbz6dsPaXOboi_ops9RaGAT1msjak4QTob1Blv8XR5ySxSrEmgVm/exec";
+    let returnValue = "";
+    switch (instance._type) {
+      case "default":
+        returnValue =
+          "https://script.google.com/macros/s/AKfycbyWx63L82e2DqT50ILpYL6rpGXakBaRteP-gzqdg-tnI1-xTEs/exec";
+        break;
+
+      case "phonecode":
+        returnValue =
+          "https://script.google.com/macros/s/AKfycbz6dsPaXOboi_ops9RaGAT1msjak4QTob1Blv8XR5ySxSrEmgVm/exec";
+        break;
+
+      case "population":
+        returnValue =
+          "https://script.google.com/macros/s/AKfycbyBWKD30pBQKSUpXYTJM37LQ1TAz36gMSBQIhWVwCzEp-TcdOCS/exec";
+        break;
+
+      default:
+        returnValue =
+          "https://script.google.com/macros/s/AKfycbyWx63L82e2DqT50ILpYL6rpGXakBaRteP-gzqdg-tnI1-xTEs/exec";
+        break;
     }
+
+    return returnValue;
   }
 
   get type() {
