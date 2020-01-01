@@ -1,3 +1,5 @@
+Sample of demo site is in https://mingyuen78.github.io/funcomponentz/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
