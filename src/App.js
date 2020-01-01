@@ -19,7 +19,7 @@ class App extends Component {
       <React.Fragment>
         <CssBaseline />
 
-        <Router>
+        <Router basename={"funcomponentz"}>
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/home" component={HomePage} />
